@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ticketing-auth
-          image: us.gcr.io/even-plating-295016/ticketing-auth
+          image: gabrielkim13/ticketing-auth
 ---
 apiVersion: v1
 kind: Service

@@ -5,10 +5,10 @@ deploy:
     manifests:
       - ./infra/k8s/*
 build:
-  googleCloudBuild:
-    projectId: even-plating-295016
+  local:
+    push: false
   artifacts:
-    - image: us.gcr.io/even-plating-295016/ticketing-auth
+    - image: gabrielkim13/ticketing-auth
       context: auth
       docker:
         dockerfile: Dockerfile

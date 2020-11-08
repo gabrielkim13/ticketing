@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ticketing-ingress-srv
@@ -10,8 +10,11 @@ spec:
     - host: ticketing.dev
       http:
         paths:
-          - path: /api/users/?(.*)
+          - path: /api/users
+            pathType: Prefix
             backend:
-              serviceName: ticketing-auth-srv
-              servicePort: 3000
+              service:
+                name: ticketing-auth-srv
+                port:
+                  number: 3000
 
