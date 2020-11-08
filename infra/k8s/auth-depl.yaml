@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticketing-auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticketing-auth
+  template:
+    metadata:
+      labels:
+        app: ticketing-auth
+    spec:
+      containers:
+        - name: ticketing-auth
+          image: us.gcr.io/even-plating-295016/ticketing-auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticketing-auth-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: ticketing-auth
+  ports:
+    - name: auth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
