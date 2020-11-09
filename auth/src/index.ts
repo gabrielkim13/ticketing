@@ -1,5 +1,6 @@
 import express from 'express';
 import 'express-async-errors';
+import mongoose, { mongo } from 'mongoose';
 
 import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
@@ -19,6 +20,20 @@ app.use(signupRouter);
 
 app.use(errorHandler);
 
-app.listen(3000, () => {
-  console.log('Auth Service: Listening on port 3000!');
-});
+async function start() {
+  try {
+    await mongoose.connect('mongodb://ticketing-auth-mongo-srv:27017/auth', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+
+  app.listen(3000, () => {
+    console.log('Auth Service: Listening on port 3000!');
+  });
+}
+
+start();
