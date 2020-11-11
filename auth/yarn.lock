@@ -279,6 +279,19 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@gabrielkim13-ticketing/common@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@gabrielkim13-ticketing/common/-/common-1.1.1.tgz#a7846a8e266b64d978dc375fd6209d7192fd3cf2"
+  integrity sha512-DXZwIXl7NOSF6vpW6WEa/y0jkwvGRQ07sOcLnC5prQx/PUoeJ98Ca2wEhcISn4utdLHdVC0RNklzD+hEwqDAJw==
+  dependencies:
+    "@types/cookie-session" "^2.0.41"
+    "@types/express" "^4.17.8"
+    "@types/jsonwebtoken" "^8.5.0"
+    cookie-session "^1.4.0"
+    express "^4.17.1"
+    express-validator "^6.6.1"
+    jsonwebtoken "^8.5.1"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"

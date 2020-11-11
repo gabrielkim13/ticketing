@@ -7,7 +7,7 @@ import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
 
-import { errorHandler } from './middlewares/error-handler';
+import { errorHandler } from '@gabrielkim13-ticketing/common';
 
 const app = express();
 
