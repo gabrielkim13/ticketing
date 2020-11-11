@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticketing-client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticketing-client
+  template:
+    metadata:
+      labels:
+        app: ticketing-client
+    spec:
+      containers:
+        - name: ticketing-client
+          image: gabrielkim13/ticketing-client
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticketing-client-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: ticketing-client
+  ports:
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
