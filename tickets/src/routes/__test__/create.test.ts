@@ -3,6 +3,7 @@ import request from 'supertest';
 import { app } from '../../app';
 import { signup } from '../../test/auth-helper';
 import { Ticket } from '../../models/ticket';
+import { natsWrapper } from '../../nats-wrapper';
 
 describe('Create', () => {
   it('should handle POST requests on /api/tickets', async () => {
@@ -75,5 +76,19 @@ describe('Create', () => {
 
     expect(response.status).toEqual(201);
     expect(Ticket.exists({ _id: newTicket.id })).toBeTruthy();
+  });
+
+  it('should publish a TicketCreated event', async () => {
+    const cookiesHeader = await signup();
+
+    await request(app)
+      .post('/api/tickets')
+      .set('Cookie', cookiesHeader)
+      .send({
+        title: 'Title',
+        price: 1,
+      });
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
   });
 });

@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 
 import { app } from '../../app';
 import { signup } from '../../test/auth-helper';
-import { Ticket, TicketDocument } from '../../models/ticket';
+import { TicketDocument } from '../../models/ticket';
+import { natsWrapper } from '../../nats-wrapper';
 
 async function createTicket(title: string = 'Title', price: number = 1) {
   const cookiesHeader = await signup();
@@ -128,5 +129,21 @@ describe('Update', () => {
     expect(response.status).toEqual(200);
     expect(updatedTicket.title).toEqual('Updated title');
     expect(updatedTicket.price).toEqual(2);
+  });
+
+  it('should publish a TicketUpdated event', async () => {
+    const oldTicket = await createTicket('Old title', 1);
+
+    const cookiesHeader = await signup();
+
+    await request(app)
+      .put(`/api/tickets/${oldTicket.id}`)
+      .set('Cookie', cookiesHeader)
+      .send({
+        title: 'Updated title',
+        price: 2
+      });
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
   });
 });

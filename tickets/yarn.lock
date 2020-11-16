@@ -279,10 +279,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@gabrielkim13-ticketing/common@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@gabrielkim13-ticketing/common/-/common-1.1.4.tgz#b3a80469116df6045fb704289d2366987cd4c571"
-  integrity sha512-fr30ItMa4B8nRdzIujT73yBrD4v9+RICre5wkvFlwGd59KZmiKqcYAB4iBh9YpfgVMBQKjn5sfUlS/wfcPRW2g==
+"@gabrielkim13-ticketing/common@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@gabrielkim13-ticketing/common/-/common-1.1.7.tgz#896dee607758f54a3f013e165cd63f3d4e86e05d"
+  integrity sha512-hRFFd3Pp7v04B6/7Njbcp5qMle5UlxxfTT3++z4nu2y1giJLkeDihtFvF7HMC6YFW8G4lG2ejqdSzJwE8TngEA==
   dependencies:
     "@types/cookie-session" "^2.0.41"
     "@types/express" "^4.17.8"

@@ -5,6 +5,9 @@ import { isValidObjectId } from 'mongoose';
 import { BadRequestError, UnauthorizedError, currentUser, requireAuth, validateRequest } from '@gabrielkim13-ticketing/common';
 
 import { Ticket } from '../models/ticket';
+import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
+
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -30,6 +33,13 @@ router.put('/api/tickets/:id', currentUser, requireAuth, [
   ticket.price = price;
 
   await ticket.save();
+
+  new TicketUpdatedPublisher(natsWrapper.client).publish({
+    id: ticket.id,
+    title: ticket.title,
+    price: ticket.price,
+    userId: ticket.userId,
+  });
 
   res.send(ticket);
 });
