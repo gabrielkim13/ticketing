@@ -1,6 +1,7 @@
 import request from 'supertest';
 
 import { app } from '../../app';
+import { natsWrapper } from '../../nats-wrapper';
 import { signup } from '../../test/auth-helper';
 import { Order, OrderStatus } from '../../models/order';
 import { Ticket } from '../../models/ticket';
@@ -10,6 +11,8 @@ async function createOrder(userId: string) {
     title: 'Title',
     price: 1,
   });
+
+  await ticket.save();
 
   const order = Order.build({
     userId,
@@ -81,5 +84,18 @@ describe('Delete', () => {
 
     expect(response.status).toEqual(200);
     expect(deletedOrder?.status).toEqual(OrderStatus.Cancelled);
+  });
+
+  it('should publish a OrderCancelled event', async () => {
+    const order = await createOrder('id')
+
+    const cookiesHeader = await signup('id');
+
+    await request(app)
+      .post(`/api/orders/${order.id}`)
+      .set('Cookie', cookiesHeader)
+      .send();
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
   });
 });
