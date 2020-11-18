@@ -280,9 +280,9 @@
     minimist "^1.2.0"
 
 "@gabrielkim13-ticketing/common@^1.1.7":
-  version "1.1.13"
-  resolved "https://registry.yarnpkg.com/@gabrielkim13-ticketing/common/-/common-1.1.13.tgz#e82dbc15a46d1c2b8b467971b1212023ed9e7a7c"
-  integrity sha512-iGnefqTLB7ANEHyK0cxNa/hT9S2VTGXU5av0UDUwBpMreq7MSzMoeoYEh6xd9Xv9DWMNhSpwoltbSJPpv0LqBg==
+  version "1.1.14"
+  resolved "https://registry.yarnpkg.com/@gabrielkim13-ticketing/common/-/common-1.1.14.tgz#071f208e4012c978a1fafcbb2198f69250bc247f"
+  integrity sha512-TG9wGWoFH8KtGLWktlv8taR2unG7UMPbe9e0d2MZ0Xd1f52jqvwBqV1/tHHaZQal8X4SpPk4sHaMNjJ3nU5rCw==
   dependencies:
     "@types/cookie-session" "^2.0.41"
     "@types/express" "^4.17.8"

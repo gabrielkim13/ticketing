@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 import { OrderStatus } from '@gabrielkim13-ticketing/common';
 
@@ -11,7 +12,9 @@ interface OrderAttrs {
   ticket: TicketDocument;
 }
 
-interface OrderDocument extends mongoose.Document, OrderAttrs { }
+interface OrderDocument extends mongoose.Document, OrderAttrs {
+  version: number;
+}
 
 interface OrderModel extends mongoose.Model<OrderDocument> {
   build(attrs: OrderAttrs): OrderDocument;
@@ -44,6 +47,9 @@ const orderSchema = new mongoose.Schema({
     versionKey: false,
   }
 });
+
+orderSchema.set('versionKey', 'version');
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttrs) => new Order(attrs);
 

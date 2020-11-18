@@ -1,4 +1,5 @@
 import request from 'supertest';
+import mongoose from 'mongoose';
 
 import { app } from '../../app';
 import { natsWrapper } from '../../nats-wrapper';
@@ -8,6 +9,7 @@ import { Ticket } from '../../models/ticket';
 
 async function createOrder(userId: string) {
   const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title: 'Title',
     price: 1,
   });
@@ -92,7 +94,7 @@ describe('Delete', () => {
     const cookiesHeader = await signup('id');
 
     await request(app)
-      .post(`/api/orders/${order.id}`)
+      .delete(`/api/orders/${order.id}`)
       .set('Cookie', cookiesHeader)
       .send();
 

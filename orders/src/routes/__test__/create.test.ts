@@ -8,7 +8,11 @@ import { Order } from '../../models/order';
 import { natsWrapper } from '../../nats-wrapper';
 
 async function createTicket(title: string = 'Title', price: number = 1) {
-  const ticket = Ticket.build({ title, price });
+  const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
+    title,
+    price
+  });
 
   await ticket.save();
 

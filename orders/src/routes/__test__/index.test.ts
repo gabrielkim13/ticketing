@@ -1,4 +1,5 @@
 import request from 'supertest';
+import mongoose from 'mongoose';
 
 import { app } from '../../app';
 import { signup } from '../../test/auth-helper';
@@ -7,6 +8,7 @@ import { Ticket } from '../../models/ticket';
 
 async function createOrder(userId: string) {
   const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title: 'Title',
     price: 1,
   });
