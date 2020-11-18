@@ -27,6 +27,8 @@ router.put('/api/tickets/:id', currentUser, requireAuth, [
 
   if (ticket.userId !== req.currentUser!.id) throw new UnauthorizedError('This ticket does not belong to you');
 
+  if (ticket.orderId) throw new BadRequestError('This ticket is already reserved');
+
   const { title, price } = req.body;
 
   ticket.title = title;
@@ -39,6 +41,7 @@ router.put('/api/tickets/:id', currentUser, requireAuth, [
     title: ticket.title,
     price: ticket.price,
     userId: ticket.userId,
+    version: ticket.version,
   });
 
   res.send(ticket);

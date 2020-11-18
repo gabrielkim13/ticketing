@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 import { app } from '../../app';
 import { signup } from '../../test/auth-helper';
-import { TicketDocument } from '../../models/ticket';
+import { Ticket, TicketDocument } from '../../models/ticket';
 import { natsWrapper } from '../../nats-wrapper';
 
 async function createTicket(title: string = 'Title', price: number = 1) {
@@ -77,6 +77,26 @@ describe('Update', () => {
       });
 
     expect(response.status).toEqual(401);
+  });
+
+  it('should return an error if the ticket is already reserved', async () => {
+    const { id } = await createTicket();
+
+    const ticket = await Ticket.findById(id);
+    ticket?.set({ orderId: mongoose.Types.ObjectId().toHexString() });
+    await ticket?.save();
+
+    const cookiesHeader = await signup();
+
+    const response = await request(app)
+      .put(`/api/tickets/${id}`)
+      .set('Cookie', cookiesHeader)
+      .send({
+        title: 'Title',
+        price: 1
+      });
+
+    expect(response.status).toEqual(400);
   });
 
   it('should return an error if an invalid title is provided', async () => {
