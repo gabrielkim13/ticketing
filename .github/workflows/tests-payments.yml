@@ -1,4 +1,4 @@
-name: tests-auth
+name: tests-payments
 
 on:
   pull_request
@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd auth && yarn && yarn test:ci
+      - run: cd payments && yarn && yarn test:ci
