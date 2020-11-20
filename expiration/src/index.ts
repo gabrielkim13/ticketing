@@ -2,6 +2,8 @@ import { natsWrapper } from './nats-wrapper';
 import { OrderCreatedListener } from './events/listeners/order-created-listener';
 
 async function start() {
+  console.log('Expiration service started!')
+
   if (!process.env.NATS_CLUSTER_ID) throw new Error('NATS_CLUSTER_ID is not defined');
   if (!process.env.NATS_CLIENT_ID) throw new Error('NATS_CLIENT_ID is not defined');
   if (!process.env.NATS_URL) throw new Error('NATS_URL is not defined');

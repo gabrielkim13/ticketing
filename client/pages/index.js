@@ -6,7 +6,7 @@ import ticketsService from '../services/tickets';
 const Home = ({ user, tickets }) => {
   return (
     <div>
-      <h1>Tickets</h1>
+      <h1>Tickets available</h1>
 
       <table className="table">
         <thead>
