@@ -2,8 +2,9 @@ import axios from 'axios';
 
 const authService = (headers = null) => {
   // On minikube: kubectl expose deployment ingress-nginx-controller --target-port=80 --type=NodePort -n kube-system
+  // http://ingress-nginx-controller.kube-system.svc.cluster.local/api/users
   const baseURL = typeof window === 'undefined'
-    ? 'http://ingress-nginx-controller.kube-system.svc.cluster.local/api/users'
+    ? 'http://ticketing-auth-srv:3000/api/users'
     : '/api/users';
 
   const api = axios.create({
