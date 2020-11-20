@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 const paymentsService = (headers = null) => {
+  // On minikube: kubectl expose deployment ingress-nginx-controller --target-port=80 --type=NodePort -n kube-system
   const baseURL = typeof window === 'undefined'
-    ? 'http://ticketing-payments-srv:3000/api/payments'
+    ? 'http://ingress-nginx-controller.kube-system.svc.cluster.local/api/payments'
     : '/api/payments';
 
   const api = axios.create({
