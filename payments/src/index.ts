@@ -38,7 +38,7 @@ async function start() {
   }
 
   app.listen(3000, () => {
-    console.log('Payments Service: Listening on port 3000!');
+    console.log('Payments service: Listening on port 3000!');
   });
 }
 
