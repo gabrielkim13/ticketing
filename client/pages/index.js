@@ -1,24 +1,44 @@
-import Head from 'next/head';
+import React from 'react';
+import Link from 'next/link';
 
-import authService from '../services/auth';
+import ticketsService from '../services/tickets';
 
-const Home = ({ user }) => {
+const Home = ({ user, tickets }) => {
   return (
-    <div className='container'>
-      <Head>
-        <title>Ticketing</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div>
+      <h1>Tickets</h1>
 
-      <main>
-        {
-          user
-            ? <h1>You are signed in!</h1>
-            : <h1>You are not signed in...</h1>
-        }
-      </main>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {tickets && tickets.length > 0 && tickets.map(({ id, title, price }) => (
+            <tr key={id}>
+              <td>{title}</td>
+              <td>{price}</td>
+              <td>
+                <Link href="/tickets/[ticketId]" as={`/tickets/${id}`}>
+                  <a>View</a>
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
+};
+
+Home.getInitialProps = async (ctx) => {
+  const tickets = await ticketsService(ctx.req?.headers).index();
+
+  return { tickets };
 };
 
 export default Home;

@@ -6,17 +6,25 @@ import authService from '../services/auth';
 
 function AppComponent({ Component, pageProps, user }) {
   return (
-    <>
+    <div>
       <Header user={user} />
-      <Component {...pageProps} />
-    </>
+
+      <div className="container">
+        <Component user={user} {...pageProps} />
+      </div>
+    </div>
   );
 }
 
-AppComponent.getInitialProps = async ({ ctx: { req } }) => {
-  const currentUser = await authService(req?.headers).currentUser();
+AppComponent.getInitialProps = async ({ ctx, Component }) => {
+  const currentUser = await authService(ctx.req?.headers).currentUser();
 
-  return { pageProps: { user: currentUser }, user: currentUser };
+  let pageProps = {};
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx, currentUser);
+  }
+
+  return { pageProps, user: currentUser };
 };
 
 export default AppComponent;

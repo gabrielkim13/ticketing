@@ -15,7 +15,7 @@
     ]
   },
   "dependencies": {
-    "@gabrielkim13-ticketing/common": "^1.1.7",
+    "@gabrielkim13-ticketing/common": "^1.1.15",
     "@types/bull": "^3.14.4",
     "bull": "^3.18.1",
     "node-nats-streaming": "^0.3.2",

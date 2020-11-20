@@ -1,6 +1,8 @@
 import { useRef, useState, useCallback } from 'react';
 import Router from 'next/router';
 
+import Errors from '../../components/errors';
+
 import authService from '../../services/auth';
 
 export default function Signup() {
@@ -22,7 +24,9 @@ export default function Signup() {
 
       Router.push('/');
     } catch (err) {
-      setErrors(err.errors);
+      const { errors: responseErrors } = err.response.data;
+
+      setErrors(responseErrors);
     }
   }, []);
 
@@ -41,16 +45,7 @@ export default function Signup() {
           <input id="password" type="password" className="form-control" ref={passwordInputRef} />
         </div>
 
-        {
-          errors && errors.length > 0 &&
-          <div className="alert alert-danger">
-            <h4>Oops...</h4>
-
-            <ul>
-              {errors.map(({ message, field }) => <li key={message}>{`${field}: ${message}`}</li>)}
-            </ul>
-          </div>
-        }
+        <Errors errors={errors} />
 
         <button className="btn btn-primary">Sign Up</button>
       </form>

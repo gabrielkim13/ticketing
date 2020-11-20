@@ -16,7 +16,7 @@ class NatsWrapper {
       this.client.on('connect', () => {
         console.log(`${clientId}@${clusterId} connected to ${url}`);
 
-        resolve();
+        resolve(null);
       });
 
       this.client.on('error', (error) => {

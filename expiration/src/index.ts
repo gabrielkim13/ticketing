@@ -24,3 +24,5 @@ async function start() {
     console.error(err);
   }
 }
+
+start();

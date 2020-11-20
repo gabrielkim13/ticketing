@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import Head from 'next/head';
 
 import Link from 'next/link';
 
@@ -7,6 +8,8 @@ const Header = ({ user }) => {
     const linkOptions = [
       !user && { label: 'Sign Up', href: '/auth/signup' },
       !user && { label: 'Sign In', href: '/auth/signin' },
+      !!user && { label: 'Sell Tickets', href: '/tickets/new' },
+      !!user && { label: 'My Orders', href: '/orders' },
       !!user && { label: 'Sign Out', href: '/auth/signout' },
     ];
 
@@ -22,17 +25,24 @@ const Header = ({ user }) => {
   }, [user]);
 
   return (
-    <nav className="navbar navbar-dark bg-primary mb-4">
-      <div className="container">
-        <Link href="/">
-          <a className="navbar-brand">GitTix</a>
-        </Link>
+    <>
+      <Head>
+        <title>Ticketing</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-        <ul className="nav">
-          {links}
-        </ul>
-      </div>
-    </nav>
+      <nav className="navbar navbar-dark bg-primary mb-4">
+        <div className="container">
+          <Link href="/">
+            <a className="navbar-brand">GitTix</a>
+          </Link>
+
+          <ul className="nav">
+            {links}
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 };
 
