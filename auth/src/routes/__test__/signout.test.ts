@@ -17,8 +17,6 @@ describe('Signout', () => {
 
     const cookieHeaders = response.get('Set-Cookie');
 
-    console.log(cookieHeaders);
-
     expect(cookieHeaders).toBeDefined();
     expect(cookieHeaders[0]).toMatch(/sess=;/);
   });
