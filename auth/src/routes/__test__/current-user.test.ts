@@ -11,7 +11,8 @@ describe('Signin', () => {
     const response = await request(app)
       .get('/api/users/currentuser')
       .set('Cookie', cookieHeaders)
-      .send();
+      .send()
+      .expect(400);
 
     const { currentUser } = response.body;
 
